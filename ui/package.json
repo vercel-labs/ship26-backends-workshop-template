@@ -1,0 +1,24 @@
+{
+  "name": "workshop-agent-ui",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "5.2.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6"
+  },
+  "dependencies": {
+    "@ai-sdk/react": "4.0.130",
+    "ai": "7.0.127",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

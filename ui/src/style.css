@@ -1,0 +1,342 @@
+/* Pixel styling matching the game viewer: greyscale chrome, Ninja Adventure font (CC0). */
+@font-face {
+  font-family: "Ninja Pixel";
+  src: url("/assets/ninja/NormalFont.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --ink: #000000;
+  --paper: #ededed;
+  --rule: #333333;
+  --panel: rgb(10 10 10 / 0.86);
+  --muted: #8f8f8f;
+  --faint: #5c5c5c;
+  --bad: #ff9a8b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* NormalFont draws on a 227/2048 em grid: 18px = 2 screen px per font pixel. */
+body {
+  margin: 0;
+  height: 100dvh;
+  padding: 24px;
+  background: #111111;
+  color: var(--paper);
+  font-family: "Ninja Pixel", ui-monospace, monospace;
+  font-size: 18px;
+  line-height: 22px;
+  word-spacing: 0.35em;
+  -webkit-font-smoothing: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+}
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+  .chat-head .pixel-button {
+    padding: 0 6px;
+  }
+}
+
+/* Classic notched pixel frame: ink outline, dark rule, dark translucent fill. */
+.pixel-panel {
+  background: var(--panel);
+  border: 2px solid var(--rule);
+  box-shadow:
+    0 -4px 0 0 var(--ink),
+    0 4px 0 0 var(--ink),
+    -4px 0 0 0 var(--ink),
+    4px 0 0 0 var(--ink),
+    inset 0 -3px 0 0 rgb(0 0 0 / 0.35),
+    0 10px 0 0 rgb(0 0 0 / 0.25);
+  padding: 12px 14px;
+}
+
+.pixel-button {
+  height: 32px;
+  min-width: 32px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow:
+    inset 0 -4px 0 0 #a1a1a1,
+    inset 0 2px 0 0 #ffffff;
+  font: inherit;
+  word-spacing: inherit;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pixel-button:hover:not(:disabled) {
+  background: #ffffff;
+  box-shadow:
+    inset 0 -4px 0 0 #8f8f8f,
+    inset 0 2px 0 0 #ffffff;
+}
+.pixel-button:active:not(:disabled) {
+  box-shadow: inset 0 3px 0 0 #8f8f8f;
+  padding-top: 3px;
+}
+.pixel-button:disabled {
+  filter: grayscale(1) brightness(0.7);
+  cursor: default;
+}
+.pixel-button:focus-visible,
+input:focus-visible,
+.chat-log:focus-visible {
+  outline: 2px solid var(--muted);
+  outline-offset: 2px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.chat {
+  width: min(640px, 100%);
+  height: min(760px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--rule);
+}
+.chat-who {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.chat-who strong {
+  color: var(--paper);
+  font-weight: normal;
+}
+
+.chat-log {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  scrollbar-width: thin;
+  scrollbar-color: var(--faint) transparent;
+}
+.chat-log p {
+  margin: 0 0 10px;
+}
+.empty,
+.thinking {
+  text-align: center;
+}
+
+.msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.msg-name {
+  flex: none;
+  color: #a1a1a1;
+}
+.msg-name::after {
+  content: ":";
+}
+.msg-user {
+  justify-content: flex-end;
+}
+.msg-user .msg-name {
+  color: var(--paper);
+}
+.msg-error {
+  color: var(--bad);
+}
+
+.tool {
+  padding-left: 24px;
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+.tool-call {
+  color: #a1a1a1;
+}
+.tool-bad {
+  color: var(--bad);
+}
+
+.chat-form {
+  display: flex;
+  gap: 8px;
+}
+.chat-form input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--rule);
+  border-radius: 0;
+  font: inherit;
+  word-spacing: inherit;
+}
+.chat-form input::placeholder {
+  color: var(--faint);
+}
+
+.login {
+  width: min(420px, 100%);
+}
+.login h1 {
+  margin: 0 0 14px;
+  color: var(--paper);
+  font: inherit;
+  text-align: center;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+}
+.login-form input {
+  height: 32px;
+  padding: 0 10px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--rule);
+  border-radius: 0;
+  font: inherit;
+  word-spacing: inherit;
+}
+.login-form input::placeholder {
+  color: var(--faint);
+}
+.login-form p {
+  margin: 0;
+}
+.login-form .pixel-button {
+  align-self: flex-end;
+}
+
+/* "or": a rule on both sides, setting the secret field apart. */
+.login-form .login-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 -4px;
+  color: var(--faint);
+}
+.login-or::before,
+.login-or::after {
+  content: "";
+  flex: 1;
+  border-top: 2px solid var(--rule);
+}
+
+.login-picked {
+  color: var(--paper);
+}
+
+/* The secret field's dropdown of remembered characters. */
+.combo {
+  position: relative;
+  display: flex;
+}
+.combo input {
+  flex: 1;
+  min-width: 0;
+  padding-right: 36px;
+}
+.combo-toggle {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  width: 30px;
+  padding: 0;
+  background: none;
+  color: var(--muted);
+  border: 0;
+  border-left: 2px solid var(--rule);
+  font: inherit;
+  cursor: pointer;
+}
+.combo-toggle:hover {
+  color: var(--paper);
+}
+.combo-list {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 2px 0;
+  list-style: none;
+  background: var(--ink);
+  border: 2px solid var(--muted);
+  box-shadow:
+    4px 4px 0 0 var(--ink),
+    0 10px 0 0 rgb(0 0 0 / 0.25);
+}
+.combo-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.combo-list li.active {
+  background: var(--paper);
+}
+.combo-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--paper);
+}
+.combo-name::before {
+  content: "▸ ";
+  color: var(--faint);
+}
+.combo-secret {
+  color: var(--faint);
+}
+.combo-list li.active .combo-name,
+.combo-list li.active .combo-name::before {
+  color: var(--ink);
+}
+.combo-list li.active .combo-secret {
+  color: var(--rule);
+}
